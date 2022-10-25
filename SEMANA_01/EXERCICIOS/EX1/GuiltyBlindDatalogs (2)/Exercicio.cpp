@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
+
 // 1 -  Faça uma função que recebe uma certa medida e ajusta ela percentualmente 
 // entre dois valores mínimo e máximo e retorna esse valor
 
@@ -15,6 +18,7 @@ int calcular(float medida, float min, float max){
   
 
   }
+} 
 
 // 2 - Faça uma função que simule a leitura de um sensor lendo o valor do teclado ao final a função retorna este valor
 
@@ -30,7 +34,13 @@ int Leiturasensor(){
 // 3 - Faça uma função que armazena uma medida inteira qualquer em um vetor fornecido. Note que como C não possui vetores nativos da linguagem, lembre-se que você precisa passar o valor máximo do vetor assim como a última posição preenchida
 // Evite também que, por acidente, um valor seja escrito em uma área de memória fora do vetor
 
-int Armazenamentomedidas ()
+int Armazenamentomedidas (int novoValor, int ult, int *v, int LastIndex, int maxSize)
+{ 
+  int *array = v;
+  array[LastIndex] = novoValor;
+  return LastIndex;
+  }
+
 
 
 // 4 - Faça uma função que recebe um vetor com 4 posições que contém o valor da distância de um pequeno robô até cada um dos seus 4 lados.
