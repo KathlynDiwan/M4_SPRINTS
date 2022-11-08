@@ -1,10 +1,9 @@
-#include <stdio.h>
-int ledslista[4] = {3,10,13,14};
-int savebutton = 35;
+int listadeLeds[4] = {3,10,13,14};
+int botaoSalvar = 1;
 int save = LOW;
-int deletebutton = 37;
-int clean = LOW; 
-int light = 0;
+int botaoLimpar = 2;
+int clean = LOW;
+int diretaLuz = 0;
 int arrayLuzes[50] = {};
 int posicaoInicial = 0;
 int pinApito = 6;
@@ -18,49 +17,49 @@ int conversaoSensor(int value, int min, int max) {
 void setup() {
   Serial.begin(115200);
   for (int i = 0; i<4; i++){
-  pinMode(ledslista[i], OUTPUT);
+  pinMode(listadeLeds[i], OUTPUT);
   }
-  pinMode(savebutton, INPUT_PULLUP);
-  pinMode(deletebutton, INPUT_PULLUP);
+  pinMode(botaoSalvar, INPUT_PULLUP);
+  pinMode(botaoLimpar, INPUT_PULLUP);
   pinMode(pinApito, OUTPUT);
 }
 void loop() {
-  save = digitalRead(deletebutton);
+  save = digitalRead(botaoSalvar);
   if (save == LOW){
-   light = conversaoSensor(analogRead(4),64,4063);
-    Serial.println(Light);
+    diretaLuz = conversaoSensor(analogRead(4),64,4063);
+    Serial.println(diretaLuz);
     int acender[4]= {0,0,0,0};
     for (int i = 0; i<4; i++){
-      acender[i] = (1&light>>i);
+      acender[i] = (1&diretaLuz>>i);
       if (acender[i] == 1){
-        digitalWrite(ledslista[i],HIGH);
+        digitalWrite(listadeLeds[i],HIGH);
       }
     }
-  tone(pinApito,200+(250*light),3000);
-  arrayLuzes[posicaoInicial] = light;
+  tone(pinApito,100+(150*diretaLuz),3000);
+  arrayLuzes[posicaoInicial] = diretaLuz;
   posicaoInicial += 1;
-  delay(1000);
+  delay(2500);
     for (int i = 0; i<4; i++){
-      digitalWrite(ledslista[i],LOW);
+      digitalWrite(listadeLeds[i],LOW);
     }
   }
-  clean = digitalRead(deletebutton);
+  clean = digitalRead(botaoLimpar);
   if (clean == LOW){
     int acender_2[4]= {0,0,0,0};
     for (int h = 0; h< posicaoInicial; h++){
-      light = arrayLuzes[h];
-      Serial.println(light);
+      diretaLuz = arrayLuzes[h];
+      Serial.println(diretaLuz);
       for (int i = 0; i<4; i++){
-        acender_2[i] = (1&lightz>>i);
+        acender_2[i] = (1&diretaLuz>>i);
         if (acender_2[i] == 1){
-          digitalWrite(edslista[i],HIGH);
+          digitalWrite(listadeLeds[i],HIGH);
         }
       }
       tone(pinApito,(100+(150*arrayLuzes[h])),3000);
       arrayLuzes[h] = 0;
-      delay(4000);
+      delay(5000);
       for (int i = 0; i<4; i++){
-        digitalWrite(ledslista[i],LOW);
+        digitalWrite(listadeLeds[i],LOW);
           }
     }
     posicaoInicial = 0;
